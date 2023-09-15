@@ -6,3 +6,7 @@
     float: right;
     margin-right: 10px;
 }
+
+.error-message {
+    color: #ff4d4f;
+}

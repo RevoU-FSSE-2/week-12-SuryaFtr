@@ -1,5 +1,4 @@
-import { Input, DatePicker, Divider, Space, Button } from 'antd';
-import { useState } from 'react';
+import { Input, DatePicker, Divider, Button } from 'antd';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 
@@ -16,8 +15,13 @@ const initPersonal = {
 }
 
 const validationPersonal = yup.object({
-    fullname: yup.string().required('Please input your Full Name!'),
-    email: yup.string().required('Please input your Email!'),
+    fullname: yup.string()
+        .min(2, 'Too Short!')
+        .max(100, 'Too Long!')
+        .required('Please input your Full Name!'),
+    email: yup.string()
+        .email('Invalid email format')
+        .required('Please input your Email!'),
     birthdate: yup.string().required('Please input your Date of Birth!')
 })
 
@@ -33,58 +37,45 @@ const FormPersonal = () => {
         validationSchema: validationPersonal
     })
 
-    const [step, setStep] = useState<number>(0);
-
-    const handleNext = () => {
-        if (step === 0 || 1) {
-            setStep((prevStep) => prevStep + 1);
-        }
-
-        return
-    }
-
     return (
-        <>
-            <form onSubmit={formMik.handleSubmit}>
-                <div>
-                    <p>Full Name : </p>
-                    <Input name={'fullname'}
-                        value={formMik.values.fullname}
-                        onChange={formMik.handleChange('fullname')}
-                        status={formMik.errors.fullname && 'error'}
-                    />
-                    {formMik.errors.fullname && (
-                        <p>{formMik.errors.fullname}</p>
-                    )}
-                </div>
-                <div>
-                    <p>Email Address : </p>
-                    <Input name={'email'}
-                        value={formMik.values.email}
-                        onChange={formMik.handleChange('email')}
-                        status={formMik.errors.email && 'error'}
-                    />
-                    {formMik.errors.email && (
-                        <p>{formMik.errors.email}</p>
-                    )}
-                </div>
-                <div>
-                    <p>Date of Birth : </p>
-                    <DatePicker name={'birthdate'}
-                        onBlur={formMik.handleChange('birthdate')}
-                        status={formMik.errors.birthdate && 'error'}
-                    />
-                    {formMik.errors.birthdate && (
-                        <p>{formMik.errors.birthdate}</p>
-                    )}
-                </div>
-                <Divider />
-                <div className={'button'}>
-                    <Button type={'primary'} htmlType={"submit"}>Save</Button>
-                </div>
-            </form>
-
-        </>
+        <form onSubmit={formMik.handleSubmit}>
+            <div>
+                <p>Full Name : </p>
+                <Input name={'fullname'}
+                    value={formMik.values.fullname}
+                    onChange={formMik.handleChange('fullname')}
+                    status={formMik.errors.fullname && 'error'}
+                />
+                {formMik.errors.fullname && (
+                    <p className={'error-message'}>{formMik.errors.fullname}</p>
+                )}
+            </div>
+            <div>
+                <p>Email Address : </p>
+                <Input name={'email'}
+                    value={formMik.values.email}
+                    onChange={formMik.handleChange('email')}
+                    status={formMik.errors.email && 'error'}
+                />
+                {formMik.errors.email && (
+                    <p className={'error-message'}>{formMik.errors.email}</p>
+                )}
+            </div>
+            <div>
+                <p>Date of Birth : </p>
+                <DatePicker name={'birthdate'}
+                    onBlur={formMik.handleChange('birthdate')}
+                    status={formMik.errors.birthdate && 'error'}
+                />
+                {formMik.errors.birthdate && (
+                    <p className={'error-message'}>{formMik.errors.birthdate}</p>
+                )}
+            </div>
+            <Divider />
+            <div className={'button'}>
+                <Button type={'primary'} htmlType={"submit"}>Save</Button>
+            </div>
+        </form>
     )
 }
 

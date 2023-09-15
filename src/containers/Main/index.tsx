@@ -81,32 +81,23 @@ const Main: React.FC = () => {
                 )}
                 {step === 1 && (
                     <Card title={'Address Information'}>
-                        <form>
-                            <FormAddress />
-                            <Divider />
-                            <div className={'button'}>
-                                <Space>
-                                    <Button onClick={handlePrev}>Previous</Button>
-                                    <Button onClick={handleNext} type={'primary'} htmlType={"submit"}>Next</Button>
-                                </Space>
-                            </div>
-                        </form>
-
+                        <FormAddress />
+                        <div className={'button'}>
+                            <Space>
+                                <Button onClick={handlePrev}>Previous</Button>
+                                <Button onClick={handleNext}>Next</Button>
+                            </Space>
+                        </div>
                     </Card>
                 )}
                 {step === 2 && (
                     <Card title={'Account Information'}>
-                        <form>
-                            <FormAccount />
-                            <Divider />
-                            <div className={'button'}>
-                                <Space>
-                                    <Button onClick={handlePrev}>Previous</Button>
-                                    <Button type={'primary'} htmlType={"submit"}>Save</Button>
-                                </Space>
-                            </div>
-                        </form>
-
+                        <FormAccount />
+                        <div className={'button'}>
+                            <Space>
+                                <Button onClick={handlePrev}>Previous</Button>
+                            </Space>
+                        </div>
                     </Card>
                 )}
             </Content>
